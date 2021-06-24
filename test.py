@@ -6,7 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class Eship(object):
-    def __init__(self,driver):
+    def __init__(self, driver):
         self.driver = driver
 
     def openBrowser(self):
@@ -82,10 +82,11 @@ class Eship(object):
         self.driver.find_element_by_id("qq").send_keys("40607222")
         # 点击确定
         self.driver.find_element_by_css_selector("[value='确认']").click()
-        WebDriverWait(self.driver,30,0.5).until(expected_conditions.alert_is_present)
+        WebDriverWait(self.driver,30,0.5).until(expected_conditions.alert_is_present())
         update_status = self.driver.switch_to.alert.text
         print(update_status)
         self.driver.switch_to.alert.accept()
+
 
 if __name__ == '__main__':
     obj = Eship(driver = webdriver.Chrome())
