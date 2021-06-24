@@ -91,5 +91,7 @@ if __name__ == '__main__':
     obj = Eship(driver = webdriver.Chrome())
     obj.openBrowser()
     obj.login()
+    # 前台购物流程
     # obj.shopping()
+    # 修改个人中心
     # obj.Personal()
