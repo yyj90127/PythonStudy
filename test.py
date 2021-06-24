@@ -1,6 +1,9 @@
 import time
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
+
 
 class Eship(object):
     def __init__(self,driver):
@@ -62,6 +65,7 @@ class Eship(object):
         time.sleep(3)
         self.driver.find_element_by_link_text("账号设置").click()
         self.driver.find_element_by_partial_link_text("人资").click()
+        self.driver.find_element_by_id("true_name").clear()
         self.driver.find_element_by_id("true_name").send_keys("袁测试")
         self.driver.find_element_by_css_selector("[value='1']").click()
         # 输入生日
@@ -73,15 +77,19 @@ class Eship(object):
         # 2、清空输入框的内容
         self.driver.find_element_by_id("date").clear()
         # 3、输入日期
-        self.driver.find_element_by_id("date").send_keys("1990-01-02")
-        self.driver.find_element_by_id("qq").send_keys("406071111")
+        self.driver.find_element_by_id("date").send_keys("1990-02-02")
+        self.driver.find_element_by_id("qq").clear()
+        self.driver.find_element_by_id("qq").send_keys("40607222")
         # 点击确定
         self.driver.find_element_by_css_selector("[value='确认']").click()
-
+        WebDriverWait(self.driver,30,0.5).until(expected_conditions.alert_is_present)
+        update_status = self.driver.switch_to.alert.text
+        print(update_status)
+        self.driver.switch_to.alert.accept()
 
 if __name__ == '__main__':
     obj = Eship(driver = webdriver.Chrome())
     obj.openBrowser()
     obj.login()
     # obj.shopping()
-    obj.Personal()
+    # obj.Personal()
