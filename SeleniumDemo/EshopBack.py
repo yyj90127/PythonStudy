@@ -42,6 +42,9 @@ driver.find_element_by_link_text("商品图册").click()
 driver.find_element_by_name("file").send_keys("C:/Users/yuanyijun/Desktop/epolicy.jpg")
 driver.find_element_by_css_selector(".uploadBtn.state-finish.state-ready").click()
 WebDriverWait(driver,30,0.5).until(expected_conditions.alert_is_present())
-print(driver.switch_to.alert.text)
+result = driver.switch_to.alert.text
 driver.switch_to.alert.accept()
-driver.find_element_by_class_name("button_search").click()
+if result == "上传成功":
+    driver.find_element_by_class_name("button_search").click()
+else:
+    print("上传照片失败")
