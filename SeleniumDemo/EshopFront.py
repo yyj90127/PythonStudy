@@ -1,29 +1,27 @@
 import time
-from selenium import webdriver
+import unittest2
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
+from SeleniumDemo.BaseTestCase import setUpClassAndtearDownClass
 
 
-class Eship(object):
-    def __init__(self, driver):
-        self.driver = driver
-
-    def openBrowser(self):
-        # 打开浏览器并设置
-        self.driver.implicitly_wait(10)
-        self.driver.maximize_window()
-
-    def login(self):
+class Eship(setUpClassAndtearDownClass):
+    def setUp(self):
         # 登录
         self.driver.get('http://localhost/index.php?m=user&c=public&a=login')
+        self.driver.find_element_by_id("username").clear()
         self.driver.find_element_by_id("username").send_keys("admin")
+        self.driver.find_element_by_id("password").clear()
         self.driver.find_element_by_id("password").send_keys("password")
         # self.driver.find_element_by_xpath("/html/body/div[3]/div[2]/form/ul/li[5]/input").click()
         # 使用submit方法提交表单
         self.driver.find_element_by_id("username").submit()
 
-    def shopping(self):
+    def tearDown(self):
+        print("测试完成")
+
+    def test_shopping(self):
         # 进入商城购物
         time.sleep(3)
         self.driver.find_element_by_link_text("进入商城购物").click()
@@ -61,7 +59,7 @@ class Eship(object):
         self.driver.find_element_by_name("address[zipcode]").send_keys("200021")
         self.driver.find_element_by_class_name("aui_state_highlight").click()
 
-    def Personal(self):
+    def test_Personal(self):
         time.sleep(3)
         self.driver.find_element_by_link_text("账号设置").click()
         self.driver.find_element_by_partial_link_text("人资").click()
@@ -89,10 +87,4 @@ class Eship(object):
 
 
 if __name__ == '__main__':
-    obj = Eship(driver = webdriver.Chrome())
-    obj.openBrowser()
-    obj.login()
-    # 前台购物流程
-    # obj.shopping()
-    # 修改个人中心
-    # obj.Personal()
+    unittest2.main
