@@ -12,5 +12,5 @@ class setUpClassAndtearDownClass(unittest2.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        time.sleep(10)
+        # time.sleep(10)
         cls.driver.quit()

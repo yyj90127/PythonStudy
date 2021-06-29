@@ -3,7 +3,7 @@ import unittest2
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-from Selenium.test_case.BaseTestCase import setUpClassAndtearDownClass
+from test_case.BaseTestCase import setUpClassAndtearDownClass
 
 
 class Eship(setUpClassAndtearDownClass):
@@ -19,11 +19,11 @@ class Eship(setUpClassAndtearDownClass):
         self.driver.find_element_by_id("username").submit()
 
     def tearDown(self):
-        print("测试完成")
+        # 登出
+        self.driver.find_element_by_link_text("[退出]").click()
 
     def test_shopping(self):
         # 进入商城购物
-        time.sleep(3)
         self.driver.find_element_by_link_text("进入商城购物").click()
 
         # 搜索商品
@@ -60,7 +60,6 @@ class Eship(setUpClassAndtearDownClass):
         self.driver.find_element_by_class_name("aui_state_highlight").click()
 
     def test_Personal(self):
-        time.sleep(3)
         self.driver.find_element_by_link_text("账号设置").click()
         self.driver.find_element_by_partial_link_text("人资").click()
         self.driver.find_element_by_id("true_name").clear()
@@ -87,4 +86,4 @@ class Eship(setUpClassAndtearDownClass):
 
 
 if __name__ == '__main__':
-    unittest2.main
+    unittest2.main()

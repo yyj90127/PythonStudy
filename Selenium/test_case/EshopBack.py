@@ -3,7 +3,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-from Selenium.test_case.BaseTestCase import setUpClassAndtearDownClass
+from test_case.BaseTestCase import setUpClassAndtearDownClass
 
 
 class Eship(setUpClassAndtearDownClass):
@@ -19,10 +19,9 @@ class Eship(setUpClassAndtearDownClass):
         self.driver.find_element_by_class_name("Btn").click()
 
     def tearDown(self):
-        print("测试完成")
-
-    def test_Register(self):
-        pass
+        # 登出
+        self.driver.switch_to.default_content()
+        self.driver.find_element_by_link_text("退出系统").click()
 
     def test_ManageProduct(self):
         # 商品管理
@@ -58,4 +57,4 @@ class Eship(setUpClassAndtearDownClass):
 
 
 if __name__ == '__main__':
-    unittest2.main
+    unittest2.main()
