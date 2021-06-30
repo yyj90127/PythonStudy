@@ -1,10 +1,11 @@
-import time
-import datetime
+import os
 
-t = time.time()
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
+print(CUR_DIR)
+PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
+print(PKG_DIR)
 
-print (int(round(t * 1000)))    #毫秒级时间戳
-
-now_time = datetime.datetime.now()
-A = str(datetime.datetime.now()).replace('-','').replace(':','').replace(' ','')[:-7]
-print(A)
+import sys
+print(sys.path)
+if PKG_DIR not in sys.path:
+    sys.path.append(PKG_DIR)
