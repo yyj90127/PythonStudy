@@ -126,9 +126,9 @@ function html_escape(s) {
 <div class='heading'>
 <h1 style="font-family: Microsoft YaHei">自动化测试报告</h1>
 <p class='attribute'><strong>测试人员 : </strong> YYJ</p>
-<p class='attribute'><strong>开始时间 : </strong> 2021-06-30 18:14:43</p>
-<p class='attribute'><strong>合计耗时 : </strong> 0:02:09.899389</p>
-<p class='attribute'><strong>测试结果 : </strong> 共 8，通过 7，失败 1，通过率= 87.50%</p>
+<p class='attribute'><strong>开始时间 : </strong> 2021-07-01 16:52:18</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:01:15.622916</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 2，通过 2，通过率= 100.00%</p>
 
 <p class='description'>测试环境：Chrome</p>
 </div>
@@ -136,10 +136,10 @@ function html_escape(s) {
 
 
 <p id='show_detail_line'>
-<a class="btn btn-primary" href='javascript:showCase(0)'>通过率 - 87.50% </a>
-<a class="btn btn-danger" href='javascript:showCase(1)'>失败 - 1 </a>
-<a class="btn btn-success" href='javascript:showCase(2)'>通过 - 7 </a>
-<a class="btn btn-info" href='javascript:showCase(3)'>所有 - 8 </a>
+<a class="btn btn-primary" href='javascript:showCase(0)'>通过率 - 100.00% </a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败 - 0 </a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过 - 2 </a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有 - 2 </a>
 </p>
 <table id='result_table' class="table table-condensed table-bordered table-hover">
 <colgroup>
@@ -160,101 +160,31 @@ function html_escape(s) {
 </tr>
 
 <tr class='passClass warning'>
-    <td>EshopBack.Eship</td>
-    <td class="text-center">1</td>
-    <td class="text-center">1</td>
+    <td>JDTest.JDTest</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
     <td class="text-center">0</td>
     <td class="text-center">0</td>
-    <td class="text-center"><a href="javascript:showClassDetail('c1',1)" class="detail" id='c1'>详细</a></td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',2)" class="detail" id='c1'>详细</a></td>
 </tr>
 
 <tr id='pt1_1' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_ManageProduct</div></td>
+    <td class='passCase'><div class='testcase'>test_1home</div></td>
     <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
 </tr>
 
-<tr class='failClass warning'>
-    <td>EshopFront.Eship</td>
-    <td class="text-center">2</td>
-    <td class="text-center">1</td>
-    <td class="text-center">1</td>
-    <td class="text-center">0</td>
-    <td class="text-center"><a href="javascript:showClassDetail('c2',2)" class="detail" id='c2'>详细</a></td>
-</tr>
-
-<tr id='ft2_1' class='none'>
-    <td class='failCase'><div class='testcase'>test_Personal</div></td>
-    <td colspan='5' align='center'>
-    <!--默认收起错误信息 
-    <button id='btn_ft2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_1'>失败</button>
-    <div id='div_ft2_1' class="collapse">  -->
-
-    <!-- 默认展开错误信息 -->
-    <button id='btn_ft2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_1'>失败</button>
-    <div id='div_ft2_1' class="collapse in">
-    <pre>
-    
-ft2_1: 个人信息修改失败！
-Traceback (most recent call last):
-  File "D:\Script\python\study\Selenium\test_case\EshopFront.py", line 97, in test_Personal
-    self.assertEquals("qq",self.driver.find_element_by_css_selector('body &gt; div.main.w1100 &gt; div &gt; div.content.fr &gt; div.ziliao &gt; dl &gt; dd &gt; ul &gt; form &gt; li:nth-child(6) &gt; span').text)
-AssertionError: 'qq' != 'QQ：'
-- qq
-+ QQ：
-
-
-
-    </pre>
-    </div>
-    </td>
-</tr>
-
-<tr id='pt2_2' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_shopping</div></td>
-    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
-</tr>
-
-<tr class='passClass warning'>
-    <td>EshopRegister.Register</td>
-    <td class="text-center">5</td>
-    <td class="text-center">5</td>
-    <td class="text-center">0</td>
-    <td class="text-center">0</td>
-    <td class="text-center"><a href="javascript:showClassDetail('c3',5)" class="detail" id='c3'>详细</a></td>
-</tr>
-
-<tr id='pt3_1' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_Register_1___admin1____password1____password1____13400000001____admin1_qq_com__</div></td>
-    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
-</tr>
-
-<tr id='pt3_2' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_Register_2___admin2____password2____password2____13400000002____admin2_qq_com__</div></td>
-    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
-</tr>
-
-<tr id='pt3_3' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_Register_3___admin3____password3____password3____13400000003____admin3_qq_com__</div></td>
-    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
-</tr>
-
-<tr id='pt3_4' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_Register_4___admin4____password4____password4____13400000004____admin4_qq_com__</div></td>
-    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
-</tr>
-
-<tr id='pt3_5' class='hiddenRow'>
-    <td class='passCase'><div class='testcase'>test_Register_5___admin5____password5____password5____13400000005____admin5_qq_com__</div></td>
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_2Shopping</div></td>
     <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
 </tr>
 
 <tr id='total_row' class="text-center active">
     <td>总计</td>
-    <td>8</td>
-    <td>7</td>
-    <td>1</td>
+    <td>2</td>
+    <td>2</td>
     <td>0</td>
-    <td>通过率：87.50%</td>
+    <td>0</td>
+    <td>通过率：100.00%</td>
 </tr>
 </table>
 

@@ -1,3 +1,10 @@
+import os
+import sys
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
+PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
+if PKG_DIR not in sys.path:
+    sys.path.append(PKG_DIR)
+
 import unittest2
 from test_case.BaseTestCase import setUpClassAndtearDownClass
 from test_tools.csvFilesManager import readcsv

@@ -1,11 +1,24 @@
+import os
+import sys
+
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
+PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
+if PKG_DIR not in sys.path:
+    sys.path.append(PKG_DIR)
+
+import time
 import unittest2
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
 from test_case.BaseTestCase import setUpClassAndtearDownClass
+from test_tools.csvFilesManager import readcsv
+import ddt
 
 
+@ddt.ddt
 class Eship(setUpClassAndtearDownClass):
     def setUp(self):
         self.driver.get("http://localhost/index.php?m=admin&c=public&a=login")
@@ -54,6 +67,35 @@ class Eship(setUpClassAndtearDownClass):
             self.driver.find_element_by_class_name("button_search").click()
         else:
             print("上传照片失败")
+
+    table = readcsv('ManageMember_data.csv')
+
+    @ddt.data(*table)
+    def test_ManageMember(self,row):
+        # 会员管理
+        self.driver.find_element_by_link_text("会员管理").click()
+        self.driver.find_element_by_link_text("添加会员").click()
+        self.driver.switch_to.frame("mainFrame")
+        self.driver.find_element_by_name('username').clear()
+        self.driver.find_element_by_name('username').send_keys(row[0])
+        self.driver.find_element_by_name('mobile_phone').clear()
+        self.driver.find_element_by_name('mobile_phone').send_keys(row[1])
+        if row[2] == 'M':
+            self.driver.find_element_by_css_selector('[name="sex"][value="1"]').click()
+        elif row[2] == 'F':
+            self.driver.find_element_by_css_selector('[name="sex"][value="0"]').click()
+        else:
+            pass
+        self.driver.find_element_by_id('birthday').clear()
+        self.driver.find_element_by_id('birthday').send_keys(row[3])
+        self.driver.find_element_by_name('email').clear()
+        self.driver.find_element_by_name('email').send_keys(row[4])
+        self.driver.find_element_by_name('qq').clear()
+        self.driver.find_element_by_name('qq').send_keys(row[5])
+        self.driver.find_element_by_class_name('button_search').click()
+        time.sleep(3)
+        WebDriverWait(self.driver,30,0.5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR,'#datagrid-row-r1-2-0 > td:nth-child(1) > div')))
+        self.assertEqual(self.driver.find_element_by_css_selector('#datagrid-row-r1-2-0 > td:nth-child(1) > div').text,row[0])
 
 
 if __name__ == '__main__':

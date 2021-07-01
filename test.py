@@ -1,11 +1,8 @@
-import os
+import datetime
+import time
 
-CUR_DIR = os.path.abspath(os.path.dirname(__file__))
-print(CUR_DIR)
-PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
-print(PKG_DIR)
-
-import sys
-print(sys.path)
-if PKG_DIR not in sys.path:
-    sys.path.append(PKG_DIR)
+NO = str(datetime.datetime.now()).replace('-','').replace(':','').replace(' ','')[:-7]
+print(NO)
+time.sleep(3)
+NO1 = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+print(NO1)
