@@ -2,7 +2,7 @@ import requests
 from interface.tools.csvmanager import readcsv
 
 
-class register_test():
+class register_test(object):
     def __init__(self):
         self.url = 'http://localhost:8081/jwshoplogin/user/register.do'
 
@@ -15,7 +15,13 @@ class register_test():
                      'question':i[4],
                      'answer':i[5]}
             request = requests.session().post(self.url,data=data).json()
-            print(request)
+            result = (request['msg'])
+            filePath = r'D:\Script\python\study\interface\data\register_result.csv'
+            with open(filePath,'a') as f:
+                if result == i[6]:
+                    f.write(f'{i[0]},{i[1]},{i[2]},{i[3]},{i[4]},{i[5]},{i[6]},pass\n')
+                else:
+                    f.write(f'{i[0]},{i[1]},{i[2]},{i[3]},{i[4]},{i[5]},{i[6]},failed\n')
 
 
     def getdata(self):
