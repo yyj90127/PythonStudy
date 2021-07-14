@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/interface/data/register_data.csv" charset="GBK" />
     <file url="file://$PROJECT_DIR$/interface/data/register_result.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/interface/data/result.csv" charset="GBK" />
     <file url="file://$PROJECT_DIR$/interface/interface_test/1.csv" charset="GBK" />
     <file url="file://$PROJECT_DIR$/interface/interface_test/2.csv" charset="GBK" />
     <file url="file://$PROJECT_DIR$/interface/interface_test/register_data_result.csv" charset="GBK" />
