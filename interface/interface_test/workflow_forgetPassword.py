@@ -5,6 +5,7 @@ from interface.tools.csvmanager import readcsv
 class workflow_forgetPassword(object):
     def __init__(self):
         self.BaseURL = 'http://localhost:8081/jwshoplogin/user/'
+        self.request = requests.session()
 
     # 读取文件
     def getdata(self):
@@ -23,7 +24,7 @@ class workflow_forgetPassword(object):
                 'phone':i[3],
                 'question':i[4],
                 'answer':i[5]}
-        request = requests.session().post(url,data=data).json()
+        request = self.request.post(url,data=data).json()
         result = (request['status'])
         if result == 0:
             return f'用户”{i[0]}“注册成功'
@@ -31,14 +32,14 @@ class workflow_forgetPassword(object):
             return f'用户”{i[0]}“注册失败'
 
     # 2、用户登录
-    def test_login(self,i,passwordNew):
+    def test_login(self,i,password):
         url = self.BaseURL+"login.do"
-        if passwordNew == 'passwordOld':
+        if password == 'passwordOld':
             password = i[1]
         else:
             password = i[6]
         data = {'username':i[0],'password':password}
-        request = requests.session().post(url,data=data).json()
+        request = self.request.post(url,data=data).json()
         result = (request['status'])
         if result == 0:
             return f'用户"{i[0]}"登录成功'
@@ -49,52 +50,54 @@ class workflow_forgetPassword(object):
     def test_forgetGetQuestion(self,i):
         url = self.BaseURL+"forget_get_question.do"
         data = {'username':i[0]}
-        request = requests.session().post(url,data=data).json()
+        request = self.request.post(url,data=data).json()
         result = (request['status'])
+        self.question = request['data']
         if result == 0:
-            return request['data']
+            return f'用户"{i[0]}"获取密保问题成功'
         else:
-            return request['msg']
+            return f'用户"{i[0]}"获取密保问题失败'
 
     # 4、提交密保问题答案
     def test_forgetCheckAnswer(self,i,question):
         url = self.BaseURL+"forget_check_answer.do"
         data = {'username':i[0],'question':question,'answer':i[5]}
-        request = requests.session().post(url,data=data).json()
+        request = self.request.post(url,data=data).json()
         result = (request['status'])
+        self.token = request['data']
         if result == 0:
-            return request['data']
+            return f'用户"{i[0]}"获取token成功'
         else:
-            return request['msg']
+            return f'用户"{i[0]}"获取token失败'
 
     # 5、回答完密保问题后修改密码
     def test_forgetResetPassword(self,i,token):
         url = self.BaseURL+"forget_reset_password.do"
         data = {'username':i[0],'passwordNew':i[6],'forgetToken':token}
-        request = requests.session().post(url,data=data).json()
+        request = self.request.post(url,data=data).json()
         result = (request['status'])
         if result == 0:
-            return request['msg']
+            return f'用户"{i[0]}"修改密码成功'
         else:
-            return request['msg']
+            return f'用户"{i[0]}"修改密码失败'
 
 
     def run(self):
         filePath = r'D:\Script\python\study\interface\data\result.csv'
         with open(filePath,'w') as f:
             for i in self.getdata():
-                f.write(self.test_register(i)+'\n')
-                f.write(self.test_login(i,'passwordOld')+'\n')
-                question = self.test_forgetGetQuestion(i)
-                f.write(question+'\n')
-                token = self.test_forgetCheckAnswer(i,question)
-                f.write(token+'\n')
-                f.write(self.test_forgetResetPassword(i,token)+'\n')
-                f.write(self.test_login(i,'passwordNew')+'\n')
-                f.write('\n')
+                f.write(self.test_register(i)+'\n'+
+                        self.test_login(i,'passwordOld')+'\n'+
+                        self.test_forgetGetQuestion(i)+'\n'+
+                        self.test_forgetCheckAnswer(i,self.question)+'\n'+
+                        self.test_forgetResetPassword(i,self.token)+'\n'+
+                        self.test_login(i,'passwordNew')+'\n'+
+                        '\n')
 
 
 
 if __name__ == '__main__':
     obj = workflow_forgetPassword()
     obj.run()
+
+
