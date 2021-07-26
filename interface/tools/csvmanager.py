@@ -2,13 +2,17 @@ import csv
 import os
 
 
-def readcsv(fileName):
+def readcsv(type, fileName = None):
     list = []
-    # filePath = '../test_data/'+fileName
-    # filePath = 'D:/Script/python/study/Selenium/test_data/register_data.csv'
-    base_path = os.path.dirname(__file__)
-    filePath = base_path.replace('tools','data/')+fileName
-    with open(filePath, 'r') as f:
+    base_path = os.path.abspath(os.path.dirname(__file__))
+    if type == 'ind':
+        filePath = base_path.replace('tools','data/ind_data/') + fileName
+    elif type == 'mul':
+        filePath = base_path.replace('tools', 'data/mul_data/') + fileName
+    elif type == 'url':
+        filePath = base_path.replace('tools', 'config/url.csv')
+
+    with open(filePath, 'r', encoding='utf-8') as f:
         table = csv.reader(f)
         i = 0
         for row in table:

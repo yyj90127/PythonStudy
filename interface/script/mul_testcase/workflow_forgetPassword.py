@@ -1,16 +1,29 @@
+import os
 import requests
+
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
+PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
+
+import sys
+if PKG_DIR not in sys.path:
+    sys.path.append(PKG_DIR)
+
 from interface.tools.csvmanager import readcsv
 
 # 针对多个接口联调测试
-class workflow_forgetPassword(object):
+class workflow_forgetPassword():
     def __init__(self):
-        self.BaseURL = 'http://localhost:8081/jwshoplogin/user/'
+        list = []
+        table = readcsv('url')
+        for i in table:
+            list.append(i)
+        self.BaseURL = f'{list[0][0]}'
         self.request = requests.session()
 
     # 读取文件
     def getdata(self):
         list = []
-        table = readcsv('register_data.csv')
+        table = readcsv('mul', 'register_data.csv')
         for i in table:
             list.append(i)
         return list
@@ -83,8 +96,8 @@ class workflow_forgetPassword(object):
 
 
     def run(self):
-        filePath = r'/interface/result/result.csv'
-        with open(filePath,'w') as f:
+        filePath = PKG_DIR.replace('script', 'result/mul_result/result.csv')
+        with open(filePath,'w',encoding='utf-8') as f:
             for i in self.getdata():
                 f.write(self.test_register(i)+'\n'+
                         self.test_login(i,'passwordOld')+'\n'+
