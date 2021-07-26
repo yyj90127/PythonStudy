@@ -11,7 +11,7 @@ if PKG_DIR not in sys.path:
 from interface.tools.csvmanager import readcsv
 
 # 针对多个接口联调测试
-class workflow_forgetPassword():
+class workflow_FPAndUI():
     def __init__(self):
         list = []
         table = readcsv('url')
@@ -23,7 +23,7 @@ class workflow_forgetPassword():
     # 读取文件
     def getdata(self):
         list = []
-        table = readcsv('mul', 'register_data.csv')
+        table = readcsv('mul', 'FPAndUI_data.csv')
         for i in table:
             list.append(i)
         return list
@@ -50,7 +50,7 @@ class workflow_forgetPassword():
         if password == 'passwordOld':
             password = i[1]
         else:
-            password = i[6]
+            password = i[10]
         data = {'username':i[0],'password':password}
         request = self.request.post(url,data=data).json()
         result = (request['status'])
@@ -59,7 +59,21 @@ class workflow_forgetPassword():
         else:
             return f'用户"{i[0]}"登录失败'
 
-    # 3、忘记密码，获取密保问题
+    # 3、修改个人信息
+    def test_updateInformation(self,i):
+        url = self.BaseURL + "update_information.do"
+        data = {'email': i[2],
+                'phone': i[3],
+                'question': i[4],
+                'answer': i[9]}
+        request = self.request.post(url, data=data).json()
+        result = (request['status'])
+        if result == 0:
+            return f'用户"{i[0]}"修改个人信息成功'
+        else:
+            return f'用户"{i[0]}"修改个人信息失败'
+
+    # 4、忘记密码，获取密保问题
     def test_forgetGetQuestion(self,i):
         url = self.BaseURL+"forget_get_question.do"
         data = {'username':i[0]}
@@ -71,10 +85,10 @@ class workflow_forgetPassword():
         else:
             return f'用户"{i[0]}"获取密保问题失败'
 
-    # 4、提交密保问题答案
+    # 5、提交密保问题答案
     def test_forgetCheckAnswer(self,i,question):
         url = self.BaseURL+"forget_check_answer.do"
-        data = {'username':i[0],'question':question,'answer':i[5]}
+        data = {'username':i[0],'question':question,'answer':i[9]}
         request = self.request.post(url,data=data).json()
         result = (request['status'])
         self.token = request['data']
@@ -83,10 +97,10 @@ class workflow_forgetPassword():
         else:
             return f'用户"{i[0]}"获取token失败'
 
-    # 5、回答完密保问题后修改密码
+    # 6、回答完密保问题后修改密码
     def test_forgetResetPassword(self,i,token):
         url = self.BaseURL+"forget_reset_password.do"
-        data = {'username':i[0],'passwordNew':i[6],'forgetToken':token}
+        data = {'username':i[0],'passwordNew':i[10],'forgetToken':token}
         request = self.request.post(url,data=data).json()
         result = (request['status'])
         if result == 0:
@@ -96,11 +110,12 @@ class workflow_forgetPassword():
 
 
     def run(self):
-        filePath = PKG_DIR.replace('script', 'result/mul_result/register_result.csv')
+        filePath = PKG_DIR.replace('script', 'result/mul_result/FPAndUI_result.csv')
         with open(filePath,'w',encoding='utf-8') as f:
             for i in self.getdata():
                 f.write(self.test_register(i)+'\n'+
                         self.test_login(i,'passwordOld')+'\n'+
+                        self.test_updateInformation(i)+'\n'+
                         self.test_forgetGetQuestion(i)+'\n'+
                         self.test_forgetCheckAnswer(i,self.question)+'\n'+
                         self.test_forgetResetPassword(i,self.token)+'\n'+
@@ -110,7 +125,7 @@ class workflow_forgetPassword():
 
 
 if __name__ == '__main__':
-    obj = workflow_forgetPassword()
+    obj = workflow_FPAndUI()
     obj.run()
 
 
