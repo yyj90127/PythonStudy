@@ -18,6 +18,7 @@ class workflow_forgetPassword():
         for i in table:
             list.append(i)
         self.BaseURL = f'{list[0][0]}'
+        print(self.BaseURL)
         self.request = requests.session()
 
     # 读取文件
@@ -111,6 +112,6 @@ class workflow_forgetPassword():
 
 if __name__ == '__main__':
     obj = workflow_forgetPassword()
-    obj.run()
+    # obj.run()
 
 
