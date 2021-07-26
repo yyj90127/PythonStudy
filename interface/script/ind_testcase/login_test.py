@@ -9,7 +9,7 @@ class interface_test(object):
 
     def readcsv(self):
         list = []
-        filePath = r'D:\Script\python\study\interface\interface_test\1.csv'
+        filePath = r'/interface/data/1.csv'
         with open(filePath,'r') as f:
             table = csv.reader(f)
             i = 0
@@ -28,7 +28,7 @@ class interface_test(object):
             data = {'username':i[0],'password':i[1]}
             request = requests.post(url,data).text
             result = request.find(i[2])
-            filePath = r'D:\Script\python\study\interface\interface_test\2.csv'
+            filePath = r'/interface/data/2.csv'
             with open(filePath,'a') as f:
                 if result>0:
                     f.write(f'{i[0]},{i[1]},{i[2]},pass\n')

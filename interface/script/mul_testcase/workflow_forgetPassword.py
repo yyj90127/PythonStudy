@@ -83,7 +83,7 @@ class workflow_forgetPassword(object):
 
 
     def run(self):
-        filePath = r'D:\Script\python\study\interface\data\result.csv'
+        filePath = r'/interface/result/result.csv'
         with open(filePath,'w') as f:
             for i in self.getdata():
                 f.write(self.test_register(i)+'\n'+
