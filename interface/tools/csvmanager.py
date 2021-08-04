@@ -9,10 +9,12 @@ def readcsv(type, fileName = None):
         filePath = base_path.replace('tools','data/ind_data/') + fileName
     elif type == 'mul':
         filePath = base_path.replace('tools', 'data/mul_data/') + fileName
+    elif type == 'config':
+        filePath = base_path.replace('tools', 'config/') + fileName
     elif type == 'url':
         filePath = base_path.replace('tools', 'config/url.csv')
 
-    with open(filePath, 'r', encoding='utf-8') as f:
+    with open(filePath, 'r', encoding="utf-8") as f:
         table = csv.reader(f)
         i = 0
         for row in table:
