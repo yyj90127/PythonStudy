@@ -13,6 +13,6 @@ if __name__ == '__main__':
     for i in table:
         if i[3] == 'Y':
             suite = unittest2.defaultTestLoader.discover(f'..{i[1]}',f'{i[2]}')
-            filePath = CUR_DIR.replace('test_driver','result/mul_result/register_result.html')
+            filePath = CUR_DIR.replace('test_driver',f'result/frame_result/{i[2]}-result.html')
             with open(filePath,'wb') as file:
                 HTMLTestRunner(stream=file, verbosity=1, title='自动化测试报告', description='测试环境：Chrome', tester='YYJ').run(suite)
