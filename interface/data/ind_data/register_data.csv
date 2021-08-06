@@ -1,4 +1,6 @@
-username,password,email,phone,question,answer
-test1,test1,test1@qq.com,134000000001,最爱的人,ida
-test2,test2,test2@qq.com,134000000002,最爱的人,ida
-test3,test3,test3@qq.com,134000000003,最爱的狗,seven
+username,password,email,phone,question,answer,result
+test1,test1,test1@qq.com,134000000001,最爱的人,ida,0
+test2,test2,test2@qq.com,134000000002,最爱的人,ida,0
+test3,test3,test3@qq.com,134000000003,最爱的狗,seven,0
+test4,test3,test3@qq.com,134000000003,最爱的狗,seven,1
+test3,test3,test4@qq.com,134000000003,最爱的狗,seven,1

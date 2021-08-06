@@ -1,8 +1,6 @@
 import os
 import ddt
-import requests
 import unittest2
-
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
@@ -11,20 +9,14 @@ import sys
 if PKG_DIR not in sys.path:
     sys.path.append(PKG_DIR)
 
-from tools.csvmanager import readcsv
 from result.HTMLTestRunner import HTMLTestRunner
+from tools.csvmanager import readcsv
+from script.mul_Base import mul_Base
 
 
 # 针对多个接口联调测试
 @ddt.ddt
-class workflow_forgetPassword(unittest2.TestCase):
-    def setUp(self):
-        list = []
-        table = readcsv('url')
-        for i in table:
-            list.append(i)
-        self.BaseURL = f'{list[0][0]}'
-        self.request = requests.session()
+class workflow_forgetPassword(mul_Base):
 
     # 1、用户注册
     def register(self,i):
@@ -65,14 +57,12 @@ class workflow_forgetPassword(unittest2.TestCase):
         self.token = request['data']
         self.assertIn(str(i[7]),str(request['status']))
 
-
     # 5、回答完密保问题后修改密码
     def forgetResetPassword(self,i,token):
         url = self.BaseURL+"forget_reset_password.do"
         data = {'username':i[0],'passwordNew':i[6],'forgetToken':token}
         request = self.request.post(url,data=data).json()
         self.assertIn(str(i[7]),str(request['status']))
-
 
     table = readcsv('mul', 'register_data.csv')
     @ddt.data(*table)

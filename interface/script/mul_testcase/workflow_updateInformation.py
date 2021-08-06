@@ -1,6 +1,5 @@
 import os
 import ddt
-import requests
 import unittest2
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -12,17 +11,12 @@ if PKG_DIR not in sys.path:
 
 from tools.csvmanager import readcsv
 from result.HTMLTestRunner import HTMLTestRunner
+from script.mul_Base import mul_Base
+
 
 # 针对多个接口联调测试
 @ddt.ddt
-class workflow_updateInformation(unittest2.TestCase):
-    def setUp(self):
-        list = []
-        table = readcsv('url')
-        for i in table:
-            list.append(i)
-        self.BaseURL = f'{list[0][0]}'
-        self.request = requests.session()
+class workflow_updateInformation(mul_Base):
 
     # 1、用户注册
     def register(self,i):
@@ -67,7 +61,6 @@ class workflow_updateInformation(unittest2.TestCase):
         request = self.request.post(url, data=data).json()
         self.assertIn(str(i[10]),str(request['status']))
 
-
     table = readcsv('mul', 'update_Information_data.csv')
     @ddt.data(*table)
     def test_run(self,i):
@@ -76,6 +69,7 @@ class workflow_updateInformation(unittest2.TestCase):
         self.getInformation(i,1)
         self.updateInformation(i)
         self.getInformation(i,2)
+
 
 
 if __name__ == '__main__':

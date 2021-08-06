@@ -1,5 +1,5 @@
-username,question,answer
-test1,最爱的人,ida
-test3,最爱的人,ida
-test1,最爱的人是谁,ida
-test1,最爱的人,id
+username,password,question,answer,result
+test1,test1,最爱的人,ida,0
+test3,test3,最爱的人,ida,1
+test1,test1,最爱的人是谁,ida,1
+test1,test1,最爱的人,id,1

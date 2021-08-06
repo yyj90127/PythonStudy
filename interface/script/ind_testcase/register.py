@@ -1,38 +1,28 @@
 # coding=utf-8
-import csv
 import os
-import requests
+import ddt
+import unittest2
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
 
 import sys
-
 if PKG_DIR not in sys.path:
     sys.path.append(PKG_DIR)
 
-from interface.tools.csvmanager import readcsv
+from tools.csvmanager import readcsv
+from script.ind_Base import ind_Base
+from result.HTMLTestRunner import HTMLTestRunner
 
 
-class interface_register(object):
-    def __init__(self):
-        list = []
-        table = readcsv('url')
-        for i in table:
-            list.append(i)
-        self.interface_name = 'register'
-        self.URL = f'{list[0][0]}{self.interface_name}.do'
-        self.request = requests.session()
+@ddt.ddt
+class interface_register(ind_Base):
+    def setUp(self):
+        self.URL = f'{self.BaseURL}register.do'
 
-    def getdata(self):
-        list = []
-        filename = self.interface_name + '_data.csv'
-        table = readcsv('ind', filename)
-        for i in table:
-            list.append(i)
-        return list
-
-    def interface_test(self, i):
+    table = readcsv('ind', 'register_data.csv')
+    @ddt.data(*table)
+    def test_interface(self, i):
         url = self.URL
         data = {'username': i[0],
                 'password': i[1],
@@ -41,19 +31,12 @@ class interface_register(object):
                 'question': i[4],
                 'answer': i[5]}
         request = self.request.post(url, data).json()
-        return request
+        self.assertIn(str(i[6]),str(request['status']))
 
-    def result(self):
-        filename = self.interface_name + '_result.csv'
-        filePath = PKG_DIR.replace('script', 'result/ind_result/' + filename)
-        with open(filePath, 'w', encoding='utf-8') as f:
-            for i in self.getdata():
-                result = self.interface_test(i)
-                if str(result).find('成功') > 0:
-                    f.write(f'用户”{i[0]}“注册成功\n')
-                else:
-                    f.write(f'用户”{i[0]}“注册失败，{result["msg"]}\n')
 
 
 if __name__ == '__main__':
-    interface_register().result()
+    suite = unittest2.defaultTestLoader.discover(CUR_DIR,'register.py')
+    filePath = PKG_DIR.replace('script','result/ind_result/register_result.html')
+    with open(filePath,'wb') as file:
+        HTMLTestRunner(stream=file, verbosity=1, title='自动化测试报告', description='测试环境：Chrome', tester='YYJ').run(suite)

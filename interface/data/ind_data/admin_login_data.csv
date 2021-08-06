@@ -1,6 +1,6 @@
-username,password
-admin,admin
-admin1,admin
-admin,admin1
-admin,
-,admin
+username,password,result
+admin,admin,0
+admin1,admin,1
+admin,admin1,1
+admin,,1
+,admin,1

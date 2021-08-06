@@ -1,5 +1,0 @@
-username：”test4“校验成功
-username：”test1“登录失败，用户名已经存在
-email：”test4@qq.com“校验成功
-email：”test1@qq.com“登录失败，邮件已经存在
-：”“登录失败，注册参数错误

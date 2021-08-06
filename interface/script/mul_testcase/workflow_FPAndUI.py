@@ -1,6 +1,5 @@
 import os
 import ddt
-import requests
 import unittest2
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -11,18 +10,13 @@ if PKG_DIR not in sys.path:
     sys.path.append(PKG_DIR)
 
 from tools.csvmanager import readcsv
+from script.mul_Base import mul_Base
 from result.HTMLTestRunner import HTMLTestRunner
+
 
 # 针对多个接口联调测试
 @ddt.ddt
-class workflow_FPAndUI(unittest2.TestCase):
-    def setUp(self):
-        list = []
-        table = readcsv('url')
-        for i in table:
-            list.append(i)
-        self.BaseURL = f'{list[0][0]}'
-        self.request = requests.session()
+class workflow_FPAndUI(mul_Base):
 
     # 1、用户注册
     def register(self,i):
@@ -98,5 +92,3 @@ if __name__ == '__main__':
     filePath = PKG_DIR.replace('script','result/mul_result/FPAndUI_result.html')
     with open(filePath,'wb') as file:
         HTMLTestRunner(stream=file, verbosity=1, title='自动化测试报告', description='测试环境：Chrome', tester='YYJ').run(suite)
-
-
