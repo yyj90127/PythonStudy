@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/LocustTest/keywords.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LocustTest/login_data.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LocustTest/login_result.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LocustTest/reg_data.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LocustTest/reg_result.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LocustTest/search_result.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LocustTest/usercenter_result.csv" charset="GBK" />
     <file url="file://$PROJECT_DIR$/interface/config/测试框架配置文件.csv" charset="GBK" />
     <file url="file://$PROJECT_DIR$/interface/data/ind_data/login_data.csv" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/interface/data/ind_data/register_data.csv" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/keywords.csv" charset="GBK" />
   </component>
 </project>

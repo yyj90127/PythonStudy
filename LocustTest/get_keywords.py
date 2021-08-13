@@ -1,7 +1,7 @@
 import os
-
 import requests
 from lxml import etree
+
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PKG_DIR = os.path.abspath(os.path.join(CUR_DIR, os.pardir))
 
