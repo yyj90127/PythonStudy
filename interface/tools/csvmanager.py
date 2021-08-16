@@ -3,7 +3,7 @@ import os
 
 
 def readcsv(type, fileName = None):
-    list = []
+    csvlist = []
     base_path = os.path.abspath(os.path.dirname(__file__))
     if type == 'ind':
         filePath = base_path.replace('tools','data/ind_data/') + fileName
@@ -21,6 +21,6 @@ def readcsv(type, fileName = None):
             if i == 0:
                 pass
             else:
-                list.append(row)
+                csvlist.append(row)
             i = i+1
-    return list
+    return csvlist
