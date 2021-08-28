@@ -7,11 +7,7 @@ def readcsv(fileName):
     filePath = base_path+"\\"+fileName
     with open(filePath, 'r') as f:
         table = csv.reader(f)
-        i = 0
+        header = next(table)
         for row in table:
-            if i == 0:
-                pass
-            else:
-                list.append(row)
-            i = i+1
+            list.append(row)
     return list

@@ -1,12 +1,12 @@
-import csv
+class Person():
+    def __init__(self, name, gender):
+        self.a = "调用父类的属性"
+        print(name,gender)
 
-file1 = open("aaa.csv","r")
-rows = csv.writer(file1)
-file2 = open("bbb.csv","w",newline = '')
-writer = csv.writer(file2)
-for row in rows:
-    row.append("测试通过")
-    writer.writerow(row)
+class Student(Person):
+    def __init__(self, name, gender, score):
+        super(Student, self).__init__(name, gender)
+        self.score = score
 
-file1.close()
-file2.close()
+if __name__ == '__main__':
+    print(Student("SEVEN","male",77).a)

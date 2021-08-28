@@ -10,11 +10,7 @@ def readcsv(fileName):
     filePath = base_path.replace('test_tools','test_data/')+fileName
     with open(filePath, 'r') as f:
         table = csv.reader(f)
-        i = 0
+        header = next(table)
         for row in table:
-            if i == 0:
-                pass
-            else:
-                csvlist.append(row)
-            i = i+1
+            csvlist.append(row)
     return csvlist

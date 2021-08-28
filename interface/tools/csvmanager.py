@@ -16,11 +16,7 @@ def readcsv(type, fileName = None):
 
     with open(filePath, 'r', encoding="utf-8") as f:
         table = csv.reader(f)
-        i = 0
+        header = next(table)
         for row in table:
-            if i == 0:
-                pass
-            else:
-                csvlist.append(row)
-            i = i+1
+            csvlist.append(row)
     return csvlist
