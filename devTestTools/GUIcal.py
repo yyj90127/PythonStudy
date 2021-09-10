@@ -70,7 +70,7 @@ class cal_GUI():
         self.res.SetValue(number1+fun+number2+'='+str(result))
 
     # 控件和事件的绑定：将控件与对应的事件函数进行绑定
-    def bind_set(self):
+    def eventbind(self):
         # 画完界面再进行事件的绑定
         self.button.Bind(wx.EVT_BUTTON,self.cal_event)
 
@@ -84,7 +84,7 @@ class cal_GUI():
     def main(self):
         self.layout()
         # 事件函数不用直接调用，通过“控件和事件绑定”的函数可以间接调用
-        self.bind_set()
+        self.eventbind()
         self.run()
 
 
