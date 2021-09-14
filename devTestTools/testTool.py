@@ -29,7 +29,7 @@ class testTool():
         self.txt_fileAddress = wx.StaticText(self.panel, label='文件名及路径选择')
         self.lab_fileAddress = wx.TextCtrl(self.panel)
         self.txt_numText = wx.StaticText(self.panel, label='数据总数')
-        self.lab_num = wx.TextCtrl(self.panel)
+        self.lab_num = wx.TextCtrl(self.panel,value = "1")
         self.but_Ok = wx.Button(self.panel, label='确定')
         self.but_Reset = wx.Button(self.panel, label='重置')
 
@@ -134,8 +134,18 @@ class testTool():
                     if dlg.ShowModal() == wx.ID_YES:
                         dlg.Destroy()
             else:
+                # 定义一个新窗口并输出
+                window = wx.Frame(None, title = '测试数据', size = (400,270))
+                panel = wx.Panel(window)
+                # 定义多行文本框
+                value = ""
                 for i in email:
-                    print(i)
+                    value = i+"\n" + value
+                result = wx.TextCtrl(panel,value = value, style = wx.TE_MULTILINE)
+                BoxSizer = wx.BoxSizer(wx.HORIZONTAL)
+                BoxSizer.Add(result, proportion = 1, flag=wx.ALL | wx.EXPAND, border=10)
+                panel.SetSizer(BoxSizer)
+                window.Show(True)
 
     def event_reset(self,event):
         dlg = wx.MessageDialog(None,"确认要清空所有内容嘛？","提示",wx.YES_NO|wx.ICON_QUESTION)
